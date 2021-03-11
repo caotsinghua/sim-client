@@ -55,6 +55,20 @@ export default merge(baseConfig, {
           'sass-loader'
         ],
       },
+      {
+        test: /.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // `./dist` can't be inerhited for publicPath for styles. Otherwise generated paths will be ./dist/dist
+              publicPath: './',
+            },
+          },
+          'css-loader',
+          'less-loader'
+        ],
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,

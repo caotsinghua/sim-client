@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -11,7 +11,7 @@ import store from './store';
 import Main from './views/Main/Main';
 import Login from './views/Login/Login';
 import { useCheckLogin } from './hooks/auth';
-import './App.scss';
+import './App.css';
 
 const Authed = () => {
   const isLogin = useCheckLogin();

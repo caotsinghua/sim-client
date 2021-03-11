@@ -1,46 +1,70 @@
-import { Container } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
-import { TextField } from 'formik-material-ui';
-import React from 'react';
+import styled from '@emotion/styled';
+import { Form, Input, Button } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../store';
+import { login } from '../../store/modules/user';
 
-interface FormValues {
+const Container = styled.div`
+  width: 400px;
+  margin: 0 auto;
+  padding-top: 40px;
+`;
+
+export interface LoginFormValues {
   userName: string;
   password: string;
 }
-const initialValues: FormValues = {
+const initialValues: LoginFormValues = {
   userName: '',
   password: '',
 };
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+};
+
 const Login: React.FC = () => {
+  const [form] = useForm<LoginFormValues>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useAppDispatch();
+  async function onFinish(values: LoginFormValues) {
+    try {
+      setIsSubmitting(true);
+      await dispatch(login(values));
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
   return (
-    <Container maxWidth="xs" fixed>
-      <Formik
+    <Container>
+      <Form
+        {...layout}
+        name="basic"
         initialValues={initialValues}
-        validate={(values) => {
-          const errors: any = {};
-          if (!values.userName) {
-            errors.userName = '必须填写用户名';
-          }
-          if (!values.password) {
-            errors.password = '必须填写密码';
-          }
-          return errors;
-        }}
-        onSubmit={(values, actions) => {
-          console.log(values);
-          setTimeout(() => {
-            actions.setSubmitting(false);
-          }, 2000);
-        }}
+        onFinish={onFinish}
+        form={form}
       >
-        {({ handleSubmit, isSubmitting }) => (
-          <Form onSubmit={handleSubmit}>
-            <Field component={TextField} name="userName" label="用户名" />
-            <Field component={TextField} name="password" label="密码" />
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
+        <Form.Item
+          label="用户名"
+          name="userName"
+          rules={[{ required: true, message: '输入用户名' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="密码"
+          name="password"
+          rules={[{ required: true, message: '输入密码' }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Button type="primary" htmlType="submit" block loading={isSubmitting}>
+          登陆
+        </Button>
+      </Form>
     </Container>
   );
 };

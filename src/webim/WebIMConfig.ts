@@ -1,5 +1,5 @@
 const config = {
-  socketServer: '//im-api-v2.easemob.com', // socket Server地址
+  socketServer: '//im-api-v2.easemob.com/ws', // socket Server地址
 
   restServer: '//a1.easemob.com', // rest Server地址
 

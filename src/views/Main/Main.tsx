@@ -1,23 +1,13 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import { Button } from '@material-ui/core';
-import React, { Component } from 'react';
+import React from 'react';
+import { useAppSelector } from '../../store';
 
-interface MainState {}
-interface MainProps {}
-
-class Main extends Component<MainProps, MainState, any> {
-  constructor(props: MainProps) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div>
-        <Button>测试</Button>
-      </div>
-    );
-  }
-}
-
+const Main: React.FC = () => {
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  return (
+    <div>
+      <h1>登陆成功</h1>
+      <p>{userInfo}</p>
+    </div>
+  );
+};
 export default Main;

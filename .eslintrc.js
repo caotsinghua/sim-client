@@ -3,6 +3,10 @@ module.exports = {
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
+    'react/prop-types': [0],
+    'no-console': 0,
+    'react/jsx-props-no-spreading': 0,
+    'import/no-cycle': 0,
   },
   parserOptions: {
     ecmaVersion: 2020,
@@ -22,6 +26,5 @@ module.exports = {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
-    'react/prop-types': [0],
   },
 };

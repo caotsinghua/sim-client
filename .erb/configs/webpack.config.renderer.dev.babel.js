@@ -91,9 +91,9 @@ export default merge(baseConfig, {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
+              // modules: {
+              //   localIdentName: '[name]__[local]__[hash:base64:5]',
+              // },
               sourceMap: true,
               importLoaders: 1,
             },
@@ -131,15 +131,56 @@ export default merge(baseConfig, {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
+              // modules: {
+              //   localIdentName: '[name]__[local]__[hash:base64:5]',
+              // },
               sourceMap: true,
               importLoaders: 1,
             },
           },
           {
             loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.global\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'less-loader',
+          },
+        ],
+      },
+      {
+        test:/^((?!\.global).)*\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: '@teamsupercell/typings-for-css-modules-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              // modules: {
+              //   localIdentName: '[name]__[local]__[hash:base64:5]',
+              // },
+              sourceMap: true,
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'less-loader',
           },
         ],
       },
